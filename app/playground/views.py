@@ -1,5 +1,6 @@
 from django.shortcuts import render
-
+from .tasks import notify_customer
 
 def say_hello(request):
-    return render(request, 'hello.html', {'name': 'Mosh'})
+    notify_customer.delay('hello')
+    return render(request, 'hello.html', {'name': 'mohammad'})
