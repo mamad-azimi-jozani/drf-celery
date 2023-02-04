@@ -10,3 +10,5 @@ pillow
 redis
 celery
 flower
+pytest
+pytest-django
