@@ -12,3 +12,4 @@ celery
 flower
 pytest
 pytest-django
+django-redis

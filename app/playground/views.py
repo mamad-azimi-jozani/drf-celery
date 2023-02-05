@@ -1,6 +1,11 @@
+from django.core.cache import cache
 from django.shortcuts import render
-from .tasks import notify_customer
+import requests
 
 def say_hello(request):
-    notify_customer.delay('hello')
-    return render(request, 'hello.html', {'name': 'mohammad'})
+    key = 'httpbin_result'
+    if cache.get(key) is None:
+        response = requests.get('http://httpbin.org/delay/10')
+        data = response.json()
+        cache.set(key, data)
+    return render(request, 'hello.html', {'name': cache.get(key)})
